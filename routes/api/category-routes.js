@@ -31,7 +31,14 @@ router.get('/:id', async (req, res) => {
 
 router.post('/', (req, res) => {
   // create a new category
-
+  console.log(req.body)
+  Category.create(req.body)
+    .then((newCat) => {
+      res.json(newCat)
+    })
+    .catch((err) => {
+      res.json(err)
+    })
 });
 
 router.put('/:id', async (req, res) => {
@@ -42,7 +49,7 @@ router.put('/:id', async (req, res) => {
         id: req.params.id
       }
     })
-    res.status(200).json(catPut)
+    res.status(200).json({message: "Category updated"})
   } catch (err) {
     res.status(500).json(err)
   }
